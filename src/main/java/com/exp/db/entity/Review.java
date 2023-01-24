@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String review_id;
+    private String id;
     private String description;
 
     @ManyToOne
@@ -16,17 +16,17 @@ public class Review {
     public Review() {
     }
 
-    public Review(String review_id, String description) {
-        this.review_id = review_id;
+    public Review(String id, String description) {
+        this.id = id;
         this.description = description;
     }
 
-    public String getReview_id() {
-        return review_id;
+    public String getId() {
+        return id;
     }
 
-    public void setReview_id(String review_id) {
-        this.review_id = review_id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDescription() {

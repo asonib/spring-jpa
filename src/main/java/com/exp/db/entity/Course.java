@@ -1,5 +1,6 @@
 package com.exp.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -10,7 +11,8 @@ import java.util.List;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String course_id;
+    @JsonIgnore
+    private String id;
     private String name;
     private String course_description;
 
@@ -18,21 +20,25 @@ public class Course {
     @JsonIgnoreProperties("course")
     private List<Review> reviews = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "courses")
+    @JsonIgnoreProperties("courses")
+    private List<Student> students = new ArrayList<>();
+
     public Course() {
     }
 
-    public Course(String course_id, String name, String course_description) {
-        this.course_id = course_id;
+    public Course(String id, String name, String course_description) {
+        this.id = id;
         this.name = name;
         this.course_description = course_description;
     }
 
-    public String getCourse_id() {
-        return course_id;
+    public String getId() {
+        return id;
     }
 
-    public void setCourse_id(String course_id) {
-        this.course_id = course_id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -61,5 +67,13 @@ public class Course {
 
     public void addReview(Review review) {
         this.reviews.add(review);
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void addStudents(Student student) {
+        this.students.add(student);
     }
 }
